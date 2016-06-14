@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+</style>
+</head>
+
+<table>
+<thead>
+<tr>
+    <th>Link</th>
+    <th>Count</th>
+</tr>
+ <tr>
+    <td><a href='/issues/get_issues_in_last_24hrs/1'>Get issues in last 24 hours</a></td>
+    <td>{{ yesterday_count }}</td>
+  </tr>
+  <tr>
+    <td>Open issues opened more than 24 hours ago but less than 7 days ago</td>
+    <td>{{ btw_yesterday_and_week }}</td>
+  </tr>
+  <tr>
+    <td>Open issues opened more than 7 days ago</td>
+    <td>{{ more_than_week_data }}</td>
+  </tr>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript" >
+ 
+ $(function(){
+	 page = parseInt({{ page_id }})
+	 if(page==1){
+		 $("#prev").hide();
+	 }else if(page==10){
+		 $("#next").hide();
+	 }
+	 
+ });
+
+ $("#prev").click(function(){
+ page = parseInt({{ page_id }})
+	 console.log(page)
+	 page = page-1
+     window.location.href="/issues/get_issues_in_last_24hrs/"+page
+ });
+ 
+ $("#next").click(function(){
+	 page = parseInt({{ page_id }})
+		 console.log(page)
+		 page = page+1
+	     window.location.href="/issues/get_issues_in_last_24hrs/"+page
+	 });
+</script>
+
+
+</html>
