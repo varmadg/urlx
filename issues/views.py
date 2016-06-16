@@ -31,7 +31,7 @@ def get_issues_in_last_24hrs(request,page_id):
 
 def home(request):
 #     get all open issues
-    all_issues = requests.get('https://api.github.com/search/issues?q=state=open&per_page=100&sort=created&dir=asc')
+    all_issues = requests.get('https://api.github.com/search/issues?q=state:open&per_page=100&sort=created&dir=asc')
     all_issues_json = json.loads(all_issues.text)
 #     get open issues in last 24 hours
     yesterday = datetime.now() - timedelta(days=1)
