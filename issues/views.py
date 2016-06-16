@@ -10,12 +10,7 @@ from django.utils.lorem_ipsum import paragraph
 
 def getallissues(request):
     val = requests.get('https://api.github.com/search/issues?q=state=open&per_page=100&sort=created&dir=asc')
-    print val
-    print dir(val)
-    print type(val)
     json_data = json.loads(val.text);
-    print json_data["total_count"]
-    print dir(json_data["items"])
     return render(request, 'getallissues.html', {'data': json_data["items"]})
 
 def get_issues_in_last_24hrs(request,page_id):
@@ -24,8 +19,8 @@ def get_issues_in_last_24hrs(request,page_id):
     
     if page_id>10 or page_id<1:
         return render(request, 'getallissues.html', {'data': "" ,"page_id":"", "invalid":True})
-        val = requests.get('https://api.github.com/search/issues?q=state:open+created:>='+yesterday.isoformat()+'&per_page=100&order=asc&page='+str(page_id))
     
+    val = requests.get('https://api.github.com/search/issues?q=state:open+created:>='+yesterday.isoformat()+'&per_page=100&order=asc&page='+str(page_id))
     json_data = json.loads(val.text);
     return render(request, 'getallissues.html', {'data': json_data["items"] ,"page_id":page_id,"count":json_data["total_count"],"invalid":False})
 
