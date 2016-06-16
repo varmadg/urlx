@@ -36,7 +36,7 @@ def home(request):
 #     get open issues in last 24 hours
     yesterday = datetime.now() - timedelta(days=1)
     yesterday_response = requests.get('https://api.github.com/search/issues?q=state:open+created:>='+yesterday.isoformat()+'&per_page=100&order=asc')
-    json_data = json.loads(yesterday_data.text);
+    json_data = json.loads(yesterday_response.text);
 #     Number of open issues that were opened more than 7 days ago
     week = datetime.now() - timedelta(days=7)
     week_response = requests.get('https://api.github.com/search/issues?q=state:open+created:"'+week.isoformat()+' .. '+yesterday.isoformat()+'"&per_page=100&order=asc')
