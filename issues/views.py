@@ -25,6 +25,19 @@ def get_issues_in_last_24hrs(request,page_id):
     return render(request, 'getallissues.html', {'data': json_data["items"] ,"page_id":page_id,"count":json_data["total_count"],"invalid":False})
 
 def home(request):
+    header = {'content-type':'application/json'}
+    r = requests.post(
+    'https://github.com/login/oauth/access_token', 
+    data=json.dumps({
+        'client_id': "936f4550fe4fc3f7f3a9", 
+        'client_secret':"0afd83ef1343023a02ef4894d37a054a3eb5370d",
+        'code':"6632229d2be668eb7945"
+    }),
+    headers=header
+    )
+    print r.content
+    print r.text
+    print type[r.content]
 #     get all open issues
     all_issues = requests.get('https://api.github.com/search/issues?q=state:open')
     all_issues_json = json.loads(all_issues.text)
